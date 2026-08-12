@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuelo A&S 2027 | Boda Aníbal y Sabina</title>
+    <!-- CSS de Leaflet para el mapa -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="flight-board">
+        <div class="board-content">
+            <p class="flight-number">VUELO A&S 2027</p>
+            <h1>DESTINO: NUESTRA BODA</h1>
+            <p class="status">ESTADO: EMBARCANDO</p>
+        </div>
+    </header>
+
+    <section id="map-section">
+        <h2>Ruta de Vuelo a Tenerife</h2>
+        <div id="map"></div>
+        <!-- Sustituiremos el href por el enlace real de Google Maps cuando tengamos la finca -->
+        <a href="https://maps.app.goo.gl/diZJJUxTuc6oV8it5" class="btn-maps" target="_blank">📍 Ver ubicación en Google Maps</a>
+    </section>
+
+    <section id="rsvp-section">
+        <button id="btn-open-modal" class="btn-primary">✈️ Confirmar mi Asistencia</button>
+    </section>
+
+    <!-- Modal Formulario (Tarjeta de Embarque) -->
+    <div id="rsvp-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Check-in de Vuelo</h2>
+            <form id="rsvp-form">
+                <div class="form-group">
+                    <label for="nombre">Pasajero Principal (Nombre y Apellidos):</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="asiste">¿Embarcas?</label>
+                    <select id="asiste" name="asiste" required>
+                        <option value="Sí, confirmo asistencia">¡Sí, allí estaré!</option>
+                        <option value="No podré asistir">Lamentablemente no podré volar</option>
+                    </select>
+                </div>
+
+                <div id="acompanantes-container">
+                    <!-- Aquí se añadirán dinámicamente los acompañantes -->
+                </div>
+                <button type="button" id="btn-add-acompanante" class="btn-secondary">+ Añadir Acompañante</button>
+
+                <div class="form-group">
+                    <label for="alergias">Alergias o menú especial (Acompáñantes incluidos):</label>
+                    <textarea id="alergias" name="alergias" rows="3" placeholder="Ej. Soy celíaco, el niño menú infantil..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="canciones">¿Qué canción no puede faltar en la fiesta?</label>
+                    <input type="text" id="canciones" name="canciones" placeholder="Título y artista">
+                </div>
+
+                <button type="submit" id="btn-submit" class="btn-primary">Confirmar Billete</button>
+                <p id="form-msg" class="hidden"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/mapa.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
