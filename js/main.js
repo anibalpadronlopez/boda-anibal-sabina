@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // --- ANIMACIÓN DE ENTRADA (SOBRE Y AVIÓN) ---
+    // --- ANIMACIÓN DE ENTRADA (SOBRE CON IMAGEN Y AVIÓN) ---
     const openSealBtn = document.getElementById("open-seal");
     const envelopeScreen = document.getElementById("envelope-screen");
     const planeTransition = document.getElementById("plane-transition");
@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const mainContent = document.getElementById("main-content");
 
     openSealBtn.addEventListener("click", () => {
-        // 1. Desvanecer el sobre
+        // 1. Desvanecer la pantalla oscura y el sobre
         envelopeScreen.style.opacity = "0";
         
         setTimeout(() => {
             envelopeScreen.style.display = "none";
             
-            // 2. Mostrar animación del avión
+            // 2. Mostrar animación del avión dorado
             planeTransition.style.display = "block";
             planeIcon.classList.add("fly-animation");
             
@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 3. Ocultar avión y mostrar contenido web
                 planeTransition.style.display = "none";
                 mainContent.classList.remove("hidden");
-                // Forzar un pequeño scroll al inicio por si acaso
+                // Forzar un pequeño scroll al inicio por seguridad
                 window.scrollTo(0, 0);
             }, 2500); // El tiempo que tarda el avión (coincide con CSS)
 
-        }, 1000); // El tiempo de fade out del sobre
+        }, 1000); // El tiempo de fade out de la pantalla del sobre
     });
 
 
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateCountdowns() {
         const now = new Date().getTime();
 
-        // Calcular boda
+        // Calcular tiempo para la boda
         const wDistance = weddingDate - now;
         if (wDistance > 0) {
             document.getElementById("w-days").innerText = Math.floor(wDistance / (1000 * 60 * 60 * 24));
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("w-secs").innerText = Math.floor((wDistance % (1000 * 60)) / 1000);
         }
 
-        // Calcular RSVP
+        // Calcular tiempo límite para confirmación (RSVP)
         const rDistance = rsvpDate - now;
         if (rDistance > 0) {
             document.getElementById("r-days").innerText = Math.floor(rDistance / (1000 * 60 * 60 * 24));
@@ -58,11 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("r-secs").innerText = Math.floor((rDistance % (1000 * 60)) / 1000);
         } else {
             // Si ya pasó la fecha tope de confirmación
-            document.querySelector(".rsvp-deadline").innerHTML = "<p>El plazo de confirmación ha finalizado.</p>";
+            document.querySelector(".rsvp-deadline").innerHTML = "<p class='deadline-text'>El plazo de confirmación ha finalizado.</p>";
         }
     }
 
-    // Actualizar cada segundo
+    // Actualizar cada segundo los relojes
     setInterval(updateCountdowns, 1000);
-    updateCountdowns(); // Ejecutar una vez al inicio
+    updateCountdowns(); // Ejecutar una vez inmediatamente al cargar
 });

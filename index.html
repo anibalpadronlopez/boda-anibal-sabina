@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boda Aníbal y Sabina</title>
-    <!-- Fuentes elegantes -->
-    <link href="[https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap](https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap)" rel="stylesheet">
+    <!-- Fuentes Ultra Elegantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <!-- Iconos FontAwesome -->
-    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Pantalla Inicial: La Carta -->
+    <!-- Pantalla Inicial: El Sobre Real -->
     <div id="envelope-screen">
-        <div class="envelope">
-            <div class="envelope-flap"></div>
-            <div class="seal" id="open-seal">A&S</div>
-            <p class="envelope-text">Tienen un mensaje importante</p>
+        <div class="envelope-container">
+            <img src="img/sello.png" alt="Sello A&S" class="seal-image" id="open-seal">
+            <p class="envelope-text">Haz clic en el sello para abrir</p>
         </div>
     </div>
 
@@ -27,21 +26,26 @@
         <i class="fa-solid fa-plane plane-icon"></i>
     </div>
 
-    <!-- Contenido Principal (Oculto al inicio) -->
+    <!-- Contenido Principal -->
     <div id="main-content" class="hidden">
         
         <!-- Cabecera / Hero -->
         <header id="hero">
             <div class="hero-overlay"></div>
             <div class="hero-content">
+                <img src="img/logo.png" alt="Logo A&S" class="hero-logo">
                 <p class="boarding-pass">¡Vas a embarcar en el vuelo con destino a la celebración de nuestra boda!</p>
                 <h1>Aníbal & Sabina</h1>
             </div>
+            <!-- Elemento decorativo floral sutil -->
+            <div class="floral-deco floral-top">🌿 🌸 🌿</div>
         </header>
 
         <!-- Fecha y Cuenta Atrás Boda -->
-        <section class="section countdown-section bg-beige">
+        <section class="section countdown-section bg-light-beige">
+            <div class="floral-deco floral-subtle">✨ 🍾 ✨</div>
             <h2>21 de Agosto de 2027</h2>
+            <p class="subtitle">La cuenta atrás ha comenzado</p>
             <div class="countdown-container" id="wedding-countdown">
                 <div class="time-box"><span id="w-days">00</span><p>Días</p></div>
                 <div class="time-box"><span id="w-hours">00</span><p>Horas</p></div>
@@ -50,17 +54,22 @@
             </div>
         </section>
 
-        <!-- Ubicación -->
-        <section class="section location-section">
+        <!-- Ubicación con foto del Hotel -->
+        <section class="section location-section bg-white">
             <h2>El Destino</h2>
             <p class="hotel-name">Precise Resort Puerto de la Cruz</p>
-            <a href="[https://maps.app.goo.gl/cYu7taVkocTxMrYm8](https://maps.app.goo.gl/cYu7taVkocTxMrYm8)" target="_blank" class="btn btn-gold">
+            
+            <div class="hotel-image-container">
+                <img src="img/precise_resort_dron.jpg" alt="Precise Resort" class="hotel-img">
+            </div>
+
+            <a href="https://maps.app.goo.gl/cYu7taVkocTxMrYm8" target="_blank" class="btn btn-gold">
                 <i class="fa-solid fa-location-dot"></i> Ver Ubicación
             </a>
         </section>
 
         <!-- Itinerario de Vuelo (Cronología) -->
-        <section class="section itinerary-section bg-beige">
+        <section class="section itinerary-section bg-light-beige">
             <h2>Itinerario de Vuelo</h2>
             <div class="timeline">
                 <div class="timeline-item">
@@ -71,7 +80,7 @@
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-icon"><i class="fa-solid fa-rings-wedding"></i><i class="fa-solid fa-heart"></i></div>
+                    <div class="timeline-icon"><i class="fa-solid fa-rings-wedding"></i></div>
                     <div class="timeline-content">
                         <h3>18:00 - Ceremonia Civil</h3>
                         <p>El momento del "Sí, quiero".</p>
@@ -106,10 +115,11 @@
                     </div>
                 </div>
             </div>
+            <div class="floral-deco floral-subtle" style="margin-top: 40px;">🥂 ✨ 🥂</div>
         </section>
 
         <!-- Galería de Fotos -->
-        <section class="section gallery-section">
+        <section class="section gallery-section bg-white">
             <h2>Nuestra Aventura</h2>
             <div class="gallery-grid">
                 <img src="img/galeria1.jpg" alt="Aníbal y Sabina 1">
@@ -119,10 +129,10 @@
         </section>
 
         <!-- Sección de Regalos -->
-        <section class="section gift-section bg-beige">
+        <section class="section gift-section bg-light-beige">
             <i class="fa-solid fa-gift gift-icon"></i>
             <h2>Mesa de Regalos</h2>
-            <p>Su presencia y sus ganas de fiesta son nuestro mejor regalo. Sin embargo, si desean tener un detallito para nuestra nueva aventura, hemos habilitado la siguiente opción:</p>
+            <p class="gift-text">Su presencia y sus ganas de fiesta son nuestro mejor regalo. <br>Sin embargo, si desean tener un detallito para ayudarnos a construir nuestra nueva aventura, hemos habilitado la siguiente opción:</p>
             <div class="bizum-box">
                 <p><strong>Bizum:</strong> 640 263 014</p>
             </div>
@@ -130,15 +140,15 @@
         </section>
 
         <!-- Sección de Confirmación (RSVP) -->
-        <section class="section rsvp-section">
+        <section class="section rsvp-section bg-white">
             <h2>Confirmar Asistencia</h2>
-            <p>Es muy importante que nos confirmes tu asistencia con suficiente antelación para organizar todos los detalles.</p>
+            <p>Es muy importante que nos confirmen su asistencia con suficiente antelación para organizar todos los detalles con mimo.</p>
             <a href="https://forms.gle/zqhuzWmgE44ovJft5" target="_blank" class="btn btn-olive">
                 <i class="fa-solid fa-check"></i> Formulario de Confirmación
             </a>
             
             <div class="rsvp-deadline">
-                <p>Fecha límite para confirmar:</p>
+                <p class="deadline-text">Fecha límite para confirmar:</p>
                 <div class="countdown-container small-countdown" id="rsvp-countdown">
                     <div class="time-box"><span id="r-days">00</span><p>D</p></div>
                     <div class="time-box"><span id="r-hours">00</span><p>H</p></div>
@@ -150,7 +160,7 @@
 
         <!-- Footer -->
         <footer>
-            <div class="footer-logo">A & S</div>
+            <img src="img/logo.png" alt="Logo A&S" class="footer-logo-img">
             <p>MUCHAS GRACIAS, LES ESPERAMOS</p>
         </footer>
 
