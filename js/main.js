@@ -1,76 +1,68 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("rsvp-modal");
-    const btnOpen = document.getElementById("btn-open-modal");
-    const closeBtn = document.querySelector(".close-btn");
-    const btnAddAcompanante = document.getElementById("btn-add-acompanante");
-    const acompanantesContainer = document.getElementById("acompanantes-container");
-    const form = document.getElementById("rsvp-form");
-    const formMsg = document.getElementById("form-msg");
+    
+    // --- ANIMACIÓN DE ENTRADA (SOBRE Y AVIÓN) ---
+    const openSealBtn = document.getElementById("open-seal");
+    const envelopeScreen = document.getElementById("envelope-screen");
+    const planeTransition = document.getElementById("plane-transition");
+    const planeIcon = document.querySelector(".plane-icon");
+    const mainContent = document.getElementById("main-content");
 
-    let numAcompanantes = 0;
-
-    // Abrir y cerrar modal
-    btnOpen.addEventListener("click", () => modal.classList.remove("hidden"));
-    closeBtn.addEventListener("click", () => modal.classList.add("hidden"));
-    window.addEventListener("click", (e) => {
-        if (e.target === modal) modal.classList.add("hidden");
-    });
-
-    // Añadir acompañantes dinámicamente
-    btnAddAcompanante.addEventListener("click", () => {
-        numAcompanantes++;
-        const div = document.createElement("div");
-        div.className = "form-group";
-        div.innerHTML = `
-            <label>Nombre del Acompañante ${numAcompanantes}:</label>
-            <input type="text" name="acompanante_${numAcompanantes}" class="acompanante-input" placeholder="Nombre y apellidos">
-        `;
-        acompanantesContainer.appendChild(div);
-    });
-
-    // Enviar formulario
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+    openSealBtn.addEventListener("click", () => {
+        // 1. Desvanecer el sobre
+        envelopeScreen.style.opacity = "0";
         
-        // --- AQUÍ COLOCAREMOS LA URL DEL SCRIPT DE GOOGLE SHEETS LUEGO ---
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsbQy591RWqCKM8HV3RiUD9nTfB9VYwS9UOwWmE38-t0lWFxRc_ZB8yvGB9v2zyy8/exec";
-        
-        // Recopilamos todos los acompañantes en un solo texto
-        const inputsAcompanantes = document.querySelectorAll(".acompanante-input");
-        let listaAcompanantes = [];
-        inputsAcompanantes.forEach(input => {
-            if(input.value.trim() !== "") listaAcompanantes.push(input.value.trim());
-        });
+        setTimeout(() => {
+            envelopeScreen.style.display = "none";
+            
+            // 2. Mostrar animación del avión
+            planeTransition.style.display = "block";
+            planeIcon.classList.add("fly-animation");
+            
+            setTimeout(() => {
+                // 3. Ocultar avión y mostrar contenido web
+                planeTransition.style.display = "none";
+                mainContent.classList.remove("hidden");
+                // Forzar un pequeño scroll al inicio por si acaso
+                window.scrollTo(0, 0);
+            }, 2500); // El tiempo que tarda el avión (coincide con CSS)
 
-        // Preparamos los datos
-        const formData = new FormData();
-        formData.append("nombre", document.getElementById("nombre").value);
-        formData.append("asiste", document.getElementById("asiste").value);
-        formData.append("acompanantes", listaAcompanantes.join(", "));
-        formData.append("alergias", document.getElementById("alergias").value);
-        formData.append("canciones", document.getElementById("canciones").value);
-
-        const btnSubmit = document.getElementById("btn-submit");
-        btnSubmit.textContent = "Procesando billete...";
-        btnSubmit.disabled = true;
-
-        fetch(SCRIPT_URL, { method: "POST", body: formData })
-            .then(response => {
-                formMsg.textContent = "¡Billete confirmado con éxito! Te esperamos.";
-                formMsg.style.color = "green";
-                formMsg.classList.remove("hidden");
-                form.reset();
-                acompanantesContainer.innerHTML = "";
-                numAcompanantes = 0;
-            })
-            .catch(error => {
-                formMsg.textContent = "Hubo un error en el sistema. Inténtalo de nuevo.";
-                formMsg.style.color = "red";
-                formMsg.classList.remove("hidden");
-            })
-            .finally(() => {
-                btnSubmit.textContent = "Confirmar Billete";
-                btnSubmit.disabled = false;
-            });
+        }, 1000); // El tiempo de fade out del sobre
     });
+
+
+    // --- CUENTAS ATRÁS ---
+    // Fecha de la Boda: 21 Agosto 2027 a las 18:00
+    const weddingDate = new Date("August 21, 2027 18:00:00").getTime();
+    
+    // Fecha Límite RSVP: 21 Febrero 2027 a las 23:59
+    const rsvpDate = new Date("February 21, 2027 23:59:59").getTime();
+
+    function updateCountdowns() {
+        const now = new Date().getTime();
+
+        // Calcular boda
+        const wDistance = weddingDate - now;
+        if (wDistance > 0) {
+            document.getElementById("w-days").innerText = Math.floor(wDistance / (1000 * 60 * 60 * 24));
+            document.getElementById("w-hours").innerText = Math.floor((wDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("w-mins").innerText = Math.floor((wDistance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("w-secs").innerText = Math.floor((wDistance % (1000 * 60)) / 1000);
+        }
+
+        // Calcular RSVP
+        const rDistance = rsvpDate - now;
+        if (rDistance > 0) {
+            document.getElementById("r-days").innerText = Math.floor(rDistance / (1000 * 60 * 60 * 24));
+            document.getElementById("r-hours").innerText = Math.floor((rDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("r-mins").innerText = Math.floor((rDistance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("r-secs").innerText = Math.floor((rDistance % (1000 * 60)) / 1000);
+        } else {
+            // Si ya pasó la fecha tope de confirmación
+            document.querySelector(".rsvp-deadline").innerHTML = "<p>El plazo de confirmación ha finalizado.</p>";
+        }
+    }
+
+    // Actualizar cada segundo
+    setInterval(updateCountdowns, 1000);
+    updateCountdowns(); // Ejecutar una vez al inicio
 });
